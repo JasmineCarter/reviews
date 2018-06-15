@@ -26,7 +26,7 @@ import static java.util.Arrays.asList;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model; 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(CourseController.class)
+@WebMvcTest(ReviewController.class)
 
 public class ReviewControllerMockMvcTest {
 	
@@ -60,8 +60,20 @@ public class ReviewControllerMockMvcTest {
 	
 	@Test
 	public void shouldBeOkForASingleReview() throws Exception {
-		mvc.perform(get("/show-review?id=1")).andExpect(status().isOk()); 
+		mvc.perform(get("/review?id=1")).andExpect(status().isOk()); 
 	}
+	
+	@Test 
+	public void shouldRouteToSingleReviewsView() throws Exception {
+		mvc.perform(get("/review?id=1")).andExpect(view().name(is("review"))); 
+	}
+	
+	@Test
+	public void shouldPutASingleReviewIntoModel() throws Exception  {
+		when(repository.findOne(1L)).thenReturn(firstReview);
+		mvc.perform(get("/review?id=1")).andExpect(model().attribute("reviews", is(firstReview))); 
+	}
+	
 	
 	
 }

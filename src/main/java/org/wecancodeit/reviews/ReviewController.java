@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class CourseController {
+public class ReviewController {
 
 @Resource
 ReviewRepository reviewRepo; 
@@ -20,7 +20,8 @@ ReviewRepository reviewRepo;
 	}
 	
 	@RequestMapping("/review")
-	public String findOneCourse(@RequestParam(value="id")Long id) {
-		return ""; 
+	public String findOneCourse(@RequestParam(value="id")Long id, Model model) {
+		model.addAttribute("reviews", reviewRepo.findOne(id)); 
+		return "review"; 
 	}
 }
