@@ -13,14 +13,14 @@ public class ReviewRepositoryTest {
 	ReviewRepository underTest;
 
 	private long firstReviewId = 1L;
-	private Review firstReview = new Review(firstReviewId, "title", "review description");
+	private Review firstReview = new Review(firstReviewId, "title", "review description", "image");
 
 	private long secondReviewId = 2L;
-	private Review secondReview = new Review(secondReviewId, "title", "review description");
+	private Review secondReview = new Review(secondReviewId, "title", "review description", "image");
 
 	@Test
 	public void shouldFindAReview() {
-		 underTest = new ReviewRepository(firstReview);
+		underTest = new ReviewRepository(firstReview);
 		Review result = underTest.findOne(firstReviewId);
 		assertThat(result, is(firstReview));
 
@@ -28,15 +28,15 @@ public class ReviewRepositoryTest {
 
 	@Test
 	public void shouldFindASecondReview() {
-		 underTest = new ReviewRepository(secondReview);
+		underTest = new ReviewRepository(secondReview);
 		Review result = underTest.findOne(secondReviewId);
 		assertThat(result, is(secondReview));
 	}
-	
+
 	@Test
 	public void shouldFindAllRevivews() {
 		underTest = new ReviewRepository(firstReview, secondReview);
-		Collection<Review> result = underTest.findAll(); 
-		assertThat(result, containsInAnyOrder(firstReview, secondReview)); 
+		Collection<Review> result = underTest.findAll();
+		assertThat(result, containsInAnyOrder(firstReview, secondReview));
 	}
 }
